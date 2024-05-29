@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>ClassAssist - Dashboard</title>
+        <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='badge.ico') }}">
+    </head>
+    <body>
+        
+        <div class="navbar">
+        <div class="logo">ClassAssist</div>
+        <button class="logout" onclick="location.href='/'">Logout</button>
+        </div>
+        <style>
+            .logout{
+                position: absolute;
+                font-size: 15px;
+                color: white; /* Gold color */
+                z-index: 3;
+                background-color: #0074D9;
+                border: none;
+                right: 5%;
+            }
+            
+            .navbar {
+                font-family: Arial, sans-serif;
+                background-color: #0074D9; /* Blue color */
+                color: #ffffff; /* White text color */
+                padding: 10px 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: fixed;
+                width: 100vw;
+                left: 0;
+                top: 0;
+                height: 5vh;
+                z-index: 2;
+            }
+
+            .logo {
+                font-size: 24px;
+                font-weight: bold;
+                color: #FFD700; /* Gold color */
+                z-index: 3;
+            }
+            
+            .container {
+                display: grid;
+                position: relative;
+                grid-template-columns: repeat(3, 1fr);
+                /*grid-template-rows: repeat(3, 1fr);*/
+                gap: 0px;
+                top: 60px;
+                z-index: 1;
+            }
+    .addClass{
+        width: 33.3vw;
+        padding-bottom: 33.3vw;
+        position: relative;
+    }    
+    .addClassButton{
+        text-align: center;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        background-color: #505050;
+        border: 0px;
+        transition: 0.3s ease;
+        font-size: 4vw;
+    }
+    .addClassButton:hover {
+        background-color: #9a9a9a;
+    }
+    .class{
+        width: 33.3vw;
+        padding-bottom: 33.3vw;
+        position: relative;
+    }
+    .classContent{
+        text-align: center;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        background-color: #afd9fd;
+        border: 0px;
+        transition: 0.3s ease;
+        font-size: 4vw;
+    }
+    .classContent:hover {
+        background-color: #0074D9;
+    }
+        </style>
+        <div class="container">        
+        {% for class in classes %}
+            <div class="class">
+                <form action="/class" method="POST">
+                    <input type="hidden" name="buttonName" value="{{ class }}">
+                    <input type="submit" class="classContent" value="{{ class }}">
+                </form>
+            </div>
+        {% endfor %}
+            {% if teacher %}
+            
+            <div class="addClass">
+                <button class="addClassButton" onclick="location.href='/add'">Add Class</button>
+            </div>
+            
+            {% endif %}
+        </div>
+    </body>
+</html>

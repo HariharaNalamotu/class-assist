@@ -1,0 +1,4 @@
+username,password,teacher,classes
+teacher@mail.com,teacher,TRUE,;Physics
+student1@mail.com,student1,FALSE,;Physics
+student2@mail.com,student2,FALSE,;Physics

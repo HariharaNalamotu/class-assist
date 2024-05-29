@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClassAssist</title>
+    <style>
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        /* Navigation bar styles */
+        .navbar {
+            background-color: #0074D9; /* Blue color */
+            color: #ffffff; /* White text color */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFD700; /* Gold color */
+        }
+        
+        .login-button {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%; 
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            border: none;
+            background-color: #9f9f9f
+        }
+
+        .login-button:hover {
+            background-color: #bfbfbf;
+        }
+        
+        .instructions {
+            background-color: #0074D9; /* Blue color */
+            padding: 20px;
+            border-radius: 8px;
+            width: 70vw; /* Set width to 700px */
+            height: 53vh; /* Set height to 400px */
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            color: #FFD700;
+        }
+        
+        body {
+            background-color: #afd9fd;
+        }
+        
+        .text{
+            color: white;
+        }
+        
+        .special {
+            color: #FFD700;
+        }
+        
+    </style>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='badge.ico') }}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">ClassAssist</div>
+        <button onclick="location.href='/login'" class="login-button">Login</button>
+    </div>
+    <div class='instructions'><h1>Instructions</h1><div class='text'><br><p>Start off by creating an account with your username and password. Make sure to specify whether you are a teacher or not. This will affect your ability to either teach classes or view their summaries. Your username, password and whether you are a teacher or not will not be changeable later, so make sure you fill it out accurately.</p>
+        <br>
+        <p>If you are a teacher, you can create a class by clicking on the <b class="special">Add Class</b> button. You can name the class and add participants from the window that opens. If you forget to add a student or may have to add a student later, do not worry, you will be able to add them in the <b class='special'>class</b> page.</p>
+        <br>
+        <p>You will be redirected to the dashboard where you can see your newly created class. You can open it by clickling on it which will take you to the <b class='special'>class</b> window, where you can add students or start your class. The <b class='special'>Start</b> button starts recording and the <b class='special'>Stop</b> button stops it. From there, you will be taken to an attendance page, where you can submit your attendance. Wait for the website to process your class, and then you will be redirected back to your dashboard.</p>
+        <br>
+        <p>If you are a student, your dashboard will not have an <b class='special'>Add Class</b> button. If your dashboard is empty, you have not been aded to any classes, and you need to wait for your teacher to add you. If you do see a class, click on it to open the lectures for that class. Any lectures that have been missed are red, the rest are blue. Click on a lecture, and you will see the <b class='special'>Summary</b> page for that lecture.</p>
+        <br>
+        <p>Teachers, please remember that the website only works on Google Chrome.</p>
+        </div></div>
+    <!-- Rest of your website content goes here -->
+</body>
+</html>

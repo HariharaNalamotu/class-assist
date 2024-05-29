@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='badge.ico') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClassAssist - Register</title>
+    <style>
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #afd9fd;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh; /* Full viewport height */
+        }
+
+        /* Login container styles */
+        .login-container {
+            background-color: #0074D9; /* Blue color */
+            color: #ffffff; /* White text color */
+            padding: 20px;
+            border-radius: 8px;
+            width: 700px; /* Set width to 700px */
+            height: 400px; /* Set height to 400px */
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFD700; /* Gold color */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            position: relative;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        input[type="text"]{
+            top: 10px;
+        }
+        
+        input[type="password"]{
+            top: 20px;
+        }
+        
+        /* Button styles */
+        .register-button {
+            background-color: #FFD700;
+            position: absolute;
+            color: #0074D9;
+            border: none;
+            padding: 10px 16px;
+            top: 300%;
+            left: 50%;
+            transform: translate(-50%);
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 10px;
+            transition: background-color 0.3s ease; /* Add transition effect */            
+        }
+        
+        .buttonContainer{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .register-button:hover {
+            background-color: #ffffff;
+        }
+        
+        .error {
+            position: relative;
+            left: 50%;
+            transform: translate(-50%);
+            width: 100%;
+            text-align: center;
+            top: 40%;
+            color: red;
+        }
+        
+        input[type="checkbox"]{
+                transform: scale(2.2, 2.2);
+            }
+        
+        .checkBoxLabel {
+            font-size: 100%;
+            position: relative;
+            left: 10%;
+            top: 10%;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">ClassAssist</div>
+        <form action="/register" method="post">
+        <input type="text" placeholder="Email" class="input" name="email">
+        <input type="password" placeholder="Password" class="input" name="password">
+        <div class="buttonContainer">
+        <input type="checkbox" id="teacher" name="teacher">
+        <label for="teacher" class="checkBoxLabel">Teacher</label>
+        <input class="register-button" type="submit" value="Register">
+        </div>
+        </form>
+        <div class="error"><b>{{ text }}</b></div>
+    </div>
+</body>
+</html>

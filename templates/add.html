@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>ClassAssist - Add Class</title>
+        <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='badge.ico') }}">
+    </head>
+    <body>
+        <style>
+            body {
+                background-color: #afd9fd;
+            }
+            
+            .container{
+                background-color: #0074D9;
+                top: 30vh;
+                left: 20vw;
+                right: 20vw;
+                bottom: 5vh;
+                position: absolute;
+                width: 60vw;
+                height: 40vh;
+            }
+            
+            #name {
+                width: 70%;
+                height: 25px;
+                border-radius: 3px;
+                border: none;
+                top: 15%;
+                position: absolute;
+                left: 50%;
+                transform: translate(-50%);
+            }
+            
+            #emails {
+                width: 70%;
+                height: 25px;
+                border-radius: 3px;
+                border: none;
+                top: 50%;
+                position: absolute;
+                left: 50%;
+                transform: translate(-50%);
+            }
+            
+            .navbar {
+                font-family: Arial, sans-serif;
+                background-color: #0074D9; /* Blue color */
+                color: #ffffff; /* White text color */
+                padding: 10px 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: fixed;
+                width: 100vw;
+                left: 0;
+                top: 0;
+                height: 5vh;
+                z-index: 2;
+            }
+            
+            .homebutton {
+                font-size: 24px;
+                font-weight: bold;
+                color: #FFD700; /* Gold color */
+                z-index: 3;
+                background-color: #0074D9;
+                border: none;
+            }
+            
+            #submit {
+                width: 20%;
+                height: 30px;
+                border: none;
+                background-color: gold;
+                border-radius: 5px;
+                left: 50%;
+                transform: translate(-50%);
+                position: absolute;
+                bottom: 12%;
+                color: #0074D9;
+                transition: background-color 0.3s ease;
+            }
+            
+            #submit:hover {
+                background-color: white;
+            }
+        </style>
+        
+        <div class="navbar">
+            <button class="homebutton" onclick="location.href='/dashboard'">ClassAssist</button>
+        </div>
+        
+        <div class="container">
+            <form action="/create" method="post">
+                <input type="text" id="name" name="name" placeholder=" Class Name">
+                <input type="text" id="emails" name="emails" placeholder="Student Emails (xyz@abc.com;qwe@rty.com)">
+                <input type="submit" id="submit" value="Create Class">
+            </form>
+        </div>
+    </body>
+</html>

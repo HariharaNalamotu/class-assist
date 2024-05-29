@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>ClassAssist - {{ className }} {{ date }}</title>
+        <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='badge.ico') }}">
+    </head>
+    <body>
+        <style>
+            .navbar {
+                font-family: Arial, sans-serif;
+                background-color: #0074D9; /* Blue color */
+                color: #ffffff; /* White text color */
+                padding: 10px 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: fixed;
+                width: 100vw;
+                left: 0;
+                top: 0;
+                height: 5vh;
+                z-index: 2;
+            }
+            
+            .homebutton {
+                font-size: 24px;
+                font-weight: bold;
+                color: #FFD700; /* Gold color */
+                z-index: 3;
+                background-color: #0074D9;
+                border: none;
+            }
+            
+            body {
+                background-color: #afd9fd;
+            }
+            
+            .container {
+                background-color: #0074D9;
+                position: absolute;
+                width: 60vw;
+                min-height: 90vh;
+                left: 20vw;
+                top: 9vh;
+            }
+
+            #ClassName {
+                left: 50%;
+                height: 80%;
+                color: gold;
+                width: 100%;
+                text-align: center;
+                position: absolute;
+                transform: translate(-50%);
+                top: 20%;
+                font-size: 24px;
+            }
+            
+            #title {
+                position: absolute;
+                top: -2%;
+                left: 50%;
+                transform: translate(-50%);
+                color: white;
+                font-family: Arial; sans-serif;
+            }
+            
+            #text {
+                position: absolute;
+                top: 4%;
+                color: white;
+                left: 1%;
+            }
+        </style>
+        
+        <div class="navbar">
+            <button class="homebutton" onclick="location.href='/dashboard'">ClassAssist</button>
+            <div id="ClassName">{{ className }} {{ date }}</div>
+        </div>
+        
+        <div class="container">
+            <h1 id='title'>Summary</h1>
+            <h3 id='text'>{{ summary }}</h3>
+        </div>
+
+    </body>
+</html>

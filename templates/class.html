@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>ClassAssist - {{ className }}</title>
+        <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+        <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='badge.ico') }}">
+    </head>
+    <body>
+        <style>
+            .navbar {
+                font-family: Arial, sans-serif;
+                background-color: #0074D9; /* Blue color */
+                color: #ffffff; /* White text color */
+                padding: 10px 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: fixed;
+                width: 100vw;
+                left: 0;
+                top: 0;
+                height: 5vh;
+                z-index: 2;
+            }
+            
+            .homebutton {
+                font-size: 24px;
+                font-weight: bold;
+                color: #FFD700; /* Gold color */
+                z-index: 3;
+                background-color: #0074D9;
+                border: none;
+            }
+            
+            body {
+                background-color: #afd9fd;
+            }
+            
+            .container {
+                background-color: #0074D9;
+                position: absolute;
+                width: 60vw;
+                height: 90vh;
+                left: 20vw;
+                top: 9vh;
+            }
+            
+            #emails {
+                width: 70%;
+                height: 25px;
+                border-radius: 3px;
+                border: none;
+                top: 8%;
+                position: absolute;
+                left: 50%;
+                transform: translate(-50%);
+            }
+            
+            #submit {
+                width: 20%;
+                height: 30px;
+                border: none;
+                background-color: gold;
+                border-radius: 5px;
+                left: 50%;
+                transform: translate(-50%);
+                position: absolute;
+                top: 20%;
+                color: #0074D9;
+                transition: background-color 0.3s ease;
+            }
+            
+            #submit:hover {
+                background-color: white;
+            }
+            
+            #stop {
+                border-radius: 10px;
+                position: absolute;
+                height: 30%;
+                width: 45%;
+                background-color: #ffffff;
+                right: 2%;
+                top: 50%;
+                border: none;
+                transition: background-color 0.3s ease;
+                color: #0074D9;
+                font-size: 500%;
+            }
+            
+            #stop:hover {
+                background-color: gold;
+            }
+            
+            #start {
+                border-radius: 10px;
+                position: absolute;
+                height: 30%;
+                width: 45%;
+                background-color: #ffffff;
+                left: 2%;
+                top: 50%;
+                border: none;
+                color: #0074D9;
+                transition: background-color 0.3s ease;
+                font-size: 500%;
+            }
+            
+            #start:hover {
+                background-color: gold;
+            }
+            
+            #ClassName {
+                left: 50%;
+                height: 80%;
+                color: gold;
+                width: 100%;
+                text-align: center;
+                position: absolute;
+                transform: translate(-50%);
+                top: 20%;
+                font-size: 24px;
+            }
+            
+        </style>
+        
+        <div class="navbar">
+            <button class="homebutton" onclick="location.href='/dashboard'">ClassAssist</button>
+            <div id="ClassName">{{ className }}</div>
+        </div>
+        
+        <div class="container">
+            <form action="/creatert" method='post'>
+                <input type="text" name="emails" id="emails" placeholder="Add Participants (xyz@abc.com;qwe@rty.com)">
+                <input type="submit" id="submit" value="Add">
+            </form>
+            <button id="start">Start</button>
+            <button id="stop">Stop</button>
+            <label id="preview" hidden></label>
+        </div>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+        <script>
+            window.addEventListener('load', function() {
+  // 1) Get element references after DOM is ready
+  const startRecording = document.getElementById('start');
+  const stopRecording = document.getElementById('stop');
+  const resultpreview = document.getElementById('preview')
+
+  if (!startRecording || !stopRecording || !resultpreview) {
+    console.error('Missing required elements in the DOM.');
+    return; // Exit if elements not found
+  }
+
+  let recordAudio;
+
+  // 2) Socket.io connection (similar logic)
+  const socketio = io();
+  const socket = socketio.on('connect', function() {
+    startRecording.disabled = false;
+      stopRecording.disabled = true;
+  });
+
+  // 3) Start recording button click
+  startRecording.onclick = function() {
+    startRecording.disabled = true;
+
+    // 4) Get user audio permission
+    navigator.getUserMedia({ audio: true }, function(stream) {
+
+      // 5) Create audio recorder
+      recordAudio = RecordRTC(stream, {
+        type: 'audio',
+        mimeType: 'audio/wav',
+        sampleRate: 48000,
+        desiredSampRate: 48000,
+        recorderType: StereoAudioRecorder,
+        numberOfAudioChannels: 1
+      });
+
+      recordAudio.startRecording();
+      stopRecording.disabled = false;
+    }, function(error) {
+      console.error(JSON.stringify(error));
+    });
+  };
+
+  // 4) Stop recording button click
+  stopRecording.onclick = function() {
+    // Recording stopped
+    startRecording.disabled = false;
+    stopRecording.disabled = true;
+
+    // Stop audio recorder
+    recordAudio.stopRecording(function() {
+      // Get audio data after stopping
+      recordAudio.getDataURL(function(audioDataURL) {
+
+        // 5) Prepare data for server
+        var files = {
+          audio: {
+            type: recordAudio.getBlob().type || 'audio/wav',
+            dataURL: audioDataURL
+          }
+        };
+
+        // Send audio to server using socket.io
+        socketio.emit('message', files);
+      });
+     fetch('/attendance')
+    .then(response => response.text())
+    .then(data => {
+        // 'data' is the HTML content you returned from your Flask server.
+        // You can use it to update your entire webpage.
+        document.documentElement.innerHTML = data;
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+    });
+  };
+});
+
+        </script>
+
+    </body>
+</html>
